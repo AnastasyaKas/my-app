@@ -5,21 +5,13 @@
   "type": "module",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack serve --mode development --open",
-
     "build": "rimraf dist && cross-env NODE_ENV=production webpack --mode production",
-
     "preview": "npx http-server ./dist -p 4173 -c-1",
-
     "type-check": "tsc --noEmit",
-
     "lint": "eslint \"src/**/*.{ts,tsx}\"",
-
     "format": "prettier --write .",
-
     "test": "jest",
-
-    "prepare": "husky install"
-
+    "prepare": "echo skip husky on CI"
   },
   "lint-staged": {
     "src/**/*.{ts,tsx,js,jsx,css,scss,json,md}": [
@@ -30,5 +22,8 @@
   "jest": {
     "testEnvironment": "jsdom",
     "setupFilesAfterEnv": ["<rootDir>/jest.setup.ts"]
+  },
+  "engines": {
+    "node": "20.x"
   }
 }
