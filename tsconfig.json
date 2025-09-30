@@ -1,0 +1,17 @@
+{
+  "compilerOptions": { //основные опции компилятора TS
+    "target": "ES2020", // в какой стандарт JS компилировать
+    "lib": ["ES2020", "DOM", "DOM.Iterable"], //современные возможности JS / объект браузера(document,window и т.д.)/ чтобы работать с коллекциями (NodeList.forEach и т.п.)
+    "jsx": "react-jsx",//говорит TS использовать новый JSX-тринсформ (React 17+), без import react
+    "module": "ESNext",//формат модулей(ESM, для bvundler'ов типа webpack/vite)
+    "moduleResolution": "Bundler",//как искать модули: режим, современный с webpack/vite
+    "strict": true,//включает все строгие проверки типов
+    "skipLibCheck": true,//пропускает проверку типов внутри node_module(ускоряет сборку)
+    "noEmit": true,//ts только проверяет типы, но не создаёт .js-файлы(сборку делает webpack/babel)
+    "baseUrl": "./src",//базовый путь для абсалютных импортов
+    "paths": {//алиасы для импортов
+      "@/*": ["*"]
+    }
+  },
+  "include": ["src"]// указываем папки/файлы, которые надо проверять TS
+}
