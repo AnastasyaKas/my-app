@@ -1,84 +1,78 @@
-// @ts-check // включает проверку типов ts прямо в js файлах
-const path = require('path'); // модуль Node.js для работы с путями
-const HtmlWebpackPlugin = require('html-webpack-plugin'); // плагин: генерирует index.html и подключает скрипты
-const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // плагин: выносит CSS в отдельные файлы (в prod)
-const Dotenv = require('dotenv-webpack'); // плагин: подключает переменные окружения из .env
-const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin'); // плагин: понимает alias из tsconfig.json
+// @ts-check
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const Dotenv = require('dotenv-webpack');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 /** @type {import('webpack').Configuration} */
 module.exports = (env, argv) => {
-  const isProd = argv.mode === 'production'; // флаг: режим сборки (prod или dev)
+  const isProd = argv.mode === 'production';
 
   return {
-    entry: path.resolve(__dirname, 'src/main.tsx'), // входной файл (точка входа в приложение)
+    entry: path.resolve(__dirname, 'src/main.tsx'),
 
-    output: { // куда и как складывать сборку
-      path: path.resolve(__dirname, 'dist'), // конечная папка
-      filename: isProd ? 'assets/js/[name].[contenthash].js' : 'assets/js/[name].js', // имя основного JS-файла
-      chunkFilename: isProd ? 'assets/js/[name].[contenthash].chunk.js' : 'assets/js/[name].chunk.js', // имя для динамических чанков (lazy-loading)
-      assetModuleFilename: 'assets/media/[name][ext]', // схема именования для картинок/шрифтов
-      clean: false // не очищаем dist автоматически (используем rimraf перед build)
+    output: {
+      path: path.resolve(__dirname, 'dist'),
+      filename: isProd ? 'assets/js/[name].[contenthash].js' : 'assets/js/[name].js',
+      chunkFilename: isProd ? 'assets/js/[name].[contenthash].chunk.js' : 'assets/js/[name].chunk.js',
+      assetModuleFilename: 'assets/media/[name][ext]',
+      clean: true, // очищает dist перед сборкой
     },
 
-    devtool: isProd ? 'source-map' : 'eval-cheap-module-source-map', // source map для дебага
+    devtool: isProd ? 'source-map' : 'eval-cheap-module-source-map',
 
-    resolve: { // как webpack ищет файлы
-      extensions: ['.ts', '.tsx', '.js', '.jsx'], // расширения, которые можно не писать в import
-      plugins: [new TsconfigPathsPlugin()], // поддержка alias (@/...) из tsconfig.json
+    resolve: {
+      extensions: ['.ts', '.tsx', '.js', '.jsx'],
+      plugins: [new TsconfigPathsPlugin()],
     },
 
-    module: { // правила, как обрабатывать разные типы файлов
+    module: {
       rules: [
         {
-          test: /\.([cm]?ts|tsx|js|jsx)$/, // все ts/tsx/js/jsx
-          exclude: /node_modules/, // кроме node_modules
+          test: /\.([cm]?ts|tsx|js|jsx)$/,
+          exclude: /node_modules/,
           use: {
-            loader: 'babel-loader', // пропускаем через babel
+            loader: 'babel-loader',
             options: {
-              cacheDirectory: true, // кеширует трансформацию для ускорения
+              cacheDirectory: true,
               presets: [
-                ['@babel/preset-env', { targets: 'defaults', modules: false }], // современный JS под браузеры
-                ['@babel/preset-react', { runtime: 'automatic' }], // поддержка JSX без ручного import React
-                ['@babel/preset-typescript'] // поддержка TS
-              ]
-            }
-          }
+                ['@babel/preset-env', { targets: 'defaults', modules: false }],
+                ['@babel/preset-react', { runtime: 'automatic' }],
+                ['@babel/preset-typescript'],
+              ],
+            },
+          },
         },
         {
-          test: /\.module\.(css|scss)$/, // CSS/SCSS c CSS Modules (локальные классы)
+          test: /\.module\.(css|scss)$/,
           use: [
-            isProd ? MiniCssExtractPlugin.loader : 'style-loader', // prod: отдельные CSS файлы, dev: <style>
+            isProd ? MiniCssExtractPlugin.loader : 'style-loader',
             {
               loader: 'css-loader',
               options: {
-                modules: { // схема именования классов: в prod хеши, в dev читаемые имена
-                  localIdentName: isProd ? '[hash:base64:6]' : '[path][name]__[local]--[hash:base64:5]'
-                }
-              }
+                modules: {
+                  localIdentName: isProd ? '[hash:base64:6]' : '[path][name]__[local]--[hash:base64:5]',
+                },
+              },
             },
-            { loader: 'postcss-loader' }, // PostCSS (например, autoprefixer)
-            { loader: 'sass-loader', options: { sourceMap: !isProd } } // из SCSS в CSS
+            { loader: 'postcss-loader' },
+            { loader: 'sass-loader', options: { sourceMap: !isProd } },
           ]
         },
         {
-          test: /\.(css|scss)$/, // Обычные глобальные CSS/SCSS (не модули)
-          exclude: /\.module\.(css|scss)$/, // исключаем модули
+          test: /\.(css|scss)$/,
+          exclude: /\.module\.(css|scss)$/,
           use: [
             isProd ? MiniCssExtractPlugin.loader : 'style-loader',
-            'css-loader', // без modules, классы глобальные
+            'css-loader',
             'postcss-loader',
-            { loader: 'sass-loader', options: { sourceMap: !isProd } }
+            { loader: 'sass-loader', options: { sourceMap: !isProd } },
           ]
         },
-        {
-          test: /\.(png|jpe?g|gif|svg|ico|webp|avif)$/i, // картинки/иконки
-          type: 'asset/resource'
-        },
-        {
-          test: /\.(woff2?|eot|ttf|otf)$/i, // шрифты
-          type: 'asset/resource'
-        }
-      ]
+        { test: /\.(png|jpe?g|gif|svg|ico|webp|avif)$/i, type: 'asset/resource' },
+        { test: /\.(woff2?|eot|ttf|otf)$/i, type: 'asset/resource' },
+      ],
     },
 
     plugins: [
@@ -90,30 +84,24 @@ module.exports = (env, argv) => {
           removeRedundantAttributes: true,
           removeScriptTypeAttributes: true,
           removeStyleLinkTypeAttributes: true,
-          useShortDoctype: true
-        }
+          useShortDoctype: true,
+        },
       }),
       new MiniCssExtractPlugin({
-        filename: isProd ? 'assets/css/[name].[contenthash].css' : 'assets/css/[name].css'
+        filename: isProd ? 'assets/css/[name].[contenthash].css' : 'assets/css/[name].css',
       }),
-      new Dotenv({
-        systemvars: true // подтягивает переменные окружения из системы
-      })
+      new Dotenv({ systemvars: true }),
     ],
 
-    devServer: { // локальный сервер разработки
+    devServer: {
       port: 5173,
       open: true,
       hot: true,
       historyApiFallback: true,
-      client: { overlay: true }
+      client: { overlay: true },
     },
 
-    optimization: {
-      splitChunks: { chunks: 'all' },
-      runtimeChunk: 'single'
-    },
-
-    performance: { hints: false }
+    optimization: { splitChunks: { chunks: 'all' }, runtimeChunk: 'single' },
+    performance: { hints: false },
   };
 };
