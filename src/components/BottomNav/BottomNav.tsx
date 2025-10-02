@@ -1,111 +1,56 @@
-import { NavLink } from "react-router-dom";
-import s from './BottomNav.module.css';
+import { NavLink } from 'react-router-dom';
+import * as styles from './BottomNav.module.css'; // 👈 используем имя "styles"
 
 function IconHome() {
-  return(
-    <svg
-      viewBox="0 0 30 32"
-      className={s.icon}
-      aria-hidden="true"
-      xmlns="http://www.w3.org/2000/svg">
-      <path
-        d="M1.92501 9.19755L11.925 1.39827C13.7326 -0.0115352 16.2674 -0.0115371 18.075 1.39826L28.075 9.19755C29.2898 10.145 30 11.5996 30 13.1402V26.0965C30 28.8199 27.8204 31.0425 25.0974 31.0955L22.5974 31.1443C19.7984 31.1988 17.5 28.9447 17.5 26.1452V20.5188C17.5 19.2762 16.4926 18.2688 15.25 18.2688C14.0074 18.2688 13 19.2762 13 20.5188V26C13 28.7614 10.7614 31 8 31H5C2.23858 31 0 28.7614 0 26V13.1402C0 11.5996 0.710204 10.145 1.92501 9.19755Z"
-        fill="currentColor"/>
+  return (
+    <svg viewBox="0 0 24 24" className={styles.icon} aria-hidden="true">
+      <path d="M3 10.5 12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-10.5Z"/>
     </svg>
   );
 }
-
 function IconTests() {
   return (
-    <svg viewBox="0 0 24 31" className={s.icon} aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
-      <g clipPath="url(#clip0_31_27)">
-        {/* Белая заливка остаётся белой, обводка была #F1F3F5 → делаем динамичной */}
-        <path
-          d="M20.5715 3.44446H3.4286C2.29247 3.44446 1.37146 4.36974 1.37146 5.51112V27.5556C1.37146 28.697 2.29247 29.6222 3.4286 29.6222H20.5715C21.7076 29.6222 22.6286 28.697 22.6286 27.5556V5.51112C22.6286 4.36974 21.7076 3.44446 20.5715 3.44446Z"
-          fill="white"
-          stroke="currentColor"
-          strokeWidth="2"
-        />
-        {/* Было fill="#F1F3F5" → делаем текущим цветом */}
-        <path
-          d="M16.4571 2.06665H6.17143C5.79272 2.06665 5.48572 2.37508 5.48572 2.75554V4.82221C5.48572 5.20267 5.79272 5.5111 6.17143 5.5111H16.4571C16.8359 5.5111 17.1429 5.20267 17.1429 4.82221V2.75554C17.1429 2.37508 16.8359 2.06665 16.4571 2.06665Z"
-          fill="currentColor"
-        />
-        <path
-          d="M13.7142 0H8.91423C8.53552 0 8.22852 0.308426 8.22852 0.688889V2.06667C8.22852 2.44713 8.53552 2.75556 8.91423 2.75556H13.7142C14.0929 2.75556 14.3999 2.44713 14.3999 2.06667V0.688889C14.3999 0.308426 14.0929 0 13.7142 0Z"
-          fill="currentColor"
-        />
-        {/* Линии были stroke="#F1F3F5" → делаем currentColor */}
-        <path d="M9.59998 10.3333H19.2" stroke="currentColor" strokeLinecap="round" />
-        <path d="M9.59998 16.5333H19.2" stroke="currentColor" strokeLinecap="round" />
-        <path d="M9.59998 22.7333H19.2" stroke="currentColor" strokeLinecap="round" />
-        <path d="M4.45715 22.0444L5.54255 23.4075C5.68547 23.5869 5.95995 23.5781 6.09116 23.3898L8.22858 20.3222" stroke="currentColor" strokeLinecap="round" />
-        <path d="M4.45715 16.1889L5.54255 17.5519C5.68547 17.7314 5.95995 17.7226 6.09116 17.5343L8.22858 14.4667" stroke="currentColor" strokeLinecap="round" />
-        <path d="M4.45715 9.98888L5.54255 11.3519C5.68547 11.5314 5.95995 11.5226 6.09116 11.3343L8.22858 8.26666" stroke="currentColor" strokeLinecap="round" />
-      </g>
-      <defs>
-        <clipPath id="clip0_31_27">
-          <rect width="24" height="31" fill="white" />
-        </clipPath>
-      </defs>
+    <svg viewBox="0 0 24 24" className={styles.icon} aria-hidden="true">
+      <path d="M7 3h10a2 2 0 0 1 2 2v14l-7-3-7 3V5a2 2 0 0 1 2-2Z"/>
     </svg>
   );
 }
-
-
 function IconPractices() {
   return (
-    <svg viewBox="0 0 24 32" className={s.icon} aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
-      {/* Было fill="#F1F3F5" → currentColor */}
-      <ellipse cx="11" cy="5.5" rx="4" ry="5.5" fill="currentColor"/>
-      <path d="M11.5564 12.0293C12.4409 12.0912 13.6671 12.3526 15.1707 13.2812C16.3847 14.0314 17.0669 15.326 17.4597 16.4443C17.8546 17.5687 17.9893 18.6164 18.0427 18.9014C18.0898 19.1527 18.1301 19.4853 18.1687 19.7246C18.2121 19.9936 18.2642 20.234 18.3464 20.4424C18.4271 20.6467 18.5321 20.8073 18.6736 20.9287C18.8131 21.0484 19.0163 21.1543 19.3328 21.207C19.9498 21.3099 20.5423 21.5503 20.8689 22.0342C21.2224 22.558 21.158 23.1947 20.8259 23.8223C20.6183 24.2144 20.1971 24.304 19.905 24.3164C19.5881 24.3297 19.223 24.2658 18.865 24.168C18.1421 23.9704 17.3116 23.5972 16.6599 23.1963C16.1332 22.8722 15.7128 22.4511 15.4011 21.9023C15.4131 22.006 15.4244 22.1103 15.4373 22.2139C15.5527 23.1471 15.7015 24.0578 15.8748 24.791C15.9615 25.1581 16.0521 25.4716 16.1443 25.7168C16.2408 25.9736 16.3229 26.1105 16.3718 26.165L16.738 26.5723L12.3005 29.9004L12.0164 30.1123L12.0222 30.3418L11.8396 30.2451L11.5525 30.4609L11.531 30.0811L11.2664 29.9414L5.76636 27.0273L5.19116 26.7227L5.63354 26.2461C5.67886 26.1972 5.76202 26.0617 5.86304 25.7969C5.9588 25.5457 6.05454 25.2221 6.14722 24.8428C6.33236 24.0849 6.49694 23.139 6.62769 22.1719C6.6488 22.0157 6.66801 21.8583 6.68726 21.7021C6.3766 22.2142 5.96457 22.6095 5.45288 22.915C4.79947 23.3052 3.96681 23.6674 3.24292 23.8594C2.88437 23.9544 2.52035 24.0167 2.20483 24.0039C1.91781 23.9922 1.49591 23.9077 1.28491 23.5215C0.949396 22.9065 0.880826 22.2751 1.24194 21.7559C1.57134 21.2824 2.16502 21.0507 2.78003 20.9512C3.10029 20.8994 3.30608 20.7952 3.44604 20.6787C3.58713 20.5612 3.69052 20.4067 3.77026 20.2109C3.8518 20.0106 3.90361 19.7785 3.94702 19.5176C3.98537 19.2869 4.0267 18.9596 4.07397 18.7148C4.12727 18.4388 4.26292 17.416 4.65991 16.3193C5.05534 15.2272 5.74146 13.9655 6.95972 13.2354C8.44443 12.3456 9.65804 12.0866 10.5398 12.0215V12.0107H10.6843C10.8212 12.0035 10.9491 12 11.0681 12H11.5564V12.0293Z"
-            fill="currentColor"
-      />
-      {/* Эти два пути имели stroke="white" — оставляем, fill делаем currentColor */}
-      <path d="M12 30.1472C13.4695 27.8672 17.6612 22.7428 21.0928 24.2842C25.2258 26.1408 22.8378 33.4695 12 30.1472Z" fill="currentColor" stroke="white" strokeWidth="0.5"/>
-      <path d="M12 30.1472C10.5305 27.8672 6.33882 22.7428 2.90723 24.2842C-1.22584 26.1408 1.16216 33.4695 12 30.1472Z" fill="currentColor" stroke="white" strokeWidth="0.5"/>
+    <svg viewBox="0 0 24 24" className={styles.icon} aria-hidden="true">
+      <path d="M4 6h16v2H4V6Zm0 5h16v2H4v-2Zm0 5h10v2H4v-2Z"/>
     </svg>
   );
 }
-
 function IconCourses() {
   return (
-    <svg viewBox="0 0 46 35" className={s.icon} aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
-      {/* Было fill="#F1F3F5" → currentColor; Белые обводки оставляем белыми */}
-      <path d="M20.0021 28.4434C8.92506 22.5591 8.68039 12.3439 10.3641 6.40575C10.6672 5.33682 11.8671 4.85625 12.8577 5.35933C24.7688 11.4082 24.5706 21.6631 22.4774 27.5223C22.117 28.5313 20.9483 28.9461 20.0021 28.4434Z" fill="currentColor" stroke="white" strokeWidth="2"/>
-      <path d="M18.8967 25.8355C17.7936 13.3411 26.2252 7.56885 32.1216 5.74434C33.183 5.41591 34.2399 6.16007 34.3579 7.26484C35.7777 20.5482 27.0715 25.9708 21.0181 27.4089C19.9757 27.6566 18.991 26.9028 18.8967 25.8355Z" fill="currentColor" stroke="white" strokeWidth="2"/>
-      <path d="M20.6101 28.7006C12.0853 17.8754 16.5072 7.55487 20.8397 2.46309C21.5597 1.61689 22.8512 1.66645 23.5544 2.52669C32.8436 13.8905 27.9568 24.0447 23.2536 28.8745C22.5062 29.6421 21.273 29.5423 20.6101 28.7006Z" fill="currentColor" stroke="white" strokeWidth="2"/>
-      <path d="M21.585 28.221C23.1332 15.774 32.5899 11.9032 38.738 11.3591C39.8448 11.2611 40.7216 12.2109 40.6048 13.3158C39.2002 26.6007 29.5486 30.0718 23.3281 30.2053C22.257 30.2282 21.4527 29.2843 21.585 28.221Z" fill="currentColor" stroke="white" strokeWidth="2"/>
-      <path d="M21.1593 30.0372C8.71225 28.489 4.84153 19.0323 4.29739 12.8842C4.19944 11.7774 5.14915 10.9006 6.25406 11.0174C19.539 12.422 23.0101 22.0736 23.1436 28.2941C23.1665 29.3652 22.2225 30.1695 21.1593 30.0372Z" fill="currentColor" stroke="white" strokeWidth="2"/>
+    <svg viewBox="0 0 24 24" className={styles.icon} aria-hidden="true">
+      <path d="M4 4h16v14H4V4Zm2 2v10h12V6H6Zm-2 14h16v2H4v-2Z"/>
     </svg>
   );
 }
-
-
-
 
 export default function BottomNav() {
   return (
-
-    <nav className={s.wrap} role="navigation" aria-label="Основное меню">
-      <NavLink to="/" end className={({ isActive }) => isActive ? `${s.item} ${s.active}` : s.item}>
+    <nav className={styles.wrap} role="navigation" aria-label="Основное меню">
+      <NavLink to="/" end className={({ isActive }) => isActive ? `${styles.item} ${styles.active}` : styles.item}>
         <IconHome />
-        <span className={s.label}>Главная</span>
+        <span className={styles.label}>Главная</span>
       </NavLink>
 
-      <NavLink to="/tests" className={({ isActive }) => isActive ? `${s.item} ${s.active}` : s.item}>
+      <NavLink to="/tests" className={({ isActive }) => isActive ? `${styles.item} ${styles.active}` : styles.item}>
         <IconTests />
-        <span className={s.label}>Тесты</span>
+        <span className={styles.label}>Тесты</span>
       </NavLink>
 
-      <NavLink to="/practices" className={({ isActive }) => isActive ? `${s.item} ${s.active}` : s.item}>
+      <NavLink to="/practices" className={({ isActive }) => isActive ? `${styles.item} ${styles.active}` : styles.item}>
         <IconPractices />
-        <span className={s.label}>Практики</span>
+        <span className={styles.label}>Практики</span>
       </NavLink>
 
-      <NavLink to="/courses" className={({ isActive }) => isActive ? `${s.item} ${s.active}` : s.item}>
+      <NavLink to="/courses" className={({ isActive }) => isActive ? `${styles.item} ${styles.active}` : styles.item}>
         <IconCourses />
-        <span className={s.label}>Курсы</span>
+        <span className={styles.label}>Курсы</span>
       </NavLink>
     </nav>
   );
