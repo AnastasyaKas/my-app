@@ -11,7 +11,8 @@
     "lint": "eslint \"src/**/*.{ts,tsx}\"",
     "format": "prettier --write .",
     "test": "jest",
-    "prepare": "echo skip husky on CI"
+    "prepare": "echo skip husky on CI",
+    "bot": "node bot.cjs"
   },
   "lint-staged": {
     "src/**/*.{ts,tsx,js,jsx,css,scss,json,md}": [
@@ -29,8 +30,11 @@
     "node": "20.x"
   },
   "dependencies": {
+    "dotenv": "^17.2.3",
     "react": "^19.1.1",
-    "react-dom": "^19.1.1"
+    "react-dom": "^19.1.1",
+    "react-router-dom": "^7.9.3",
+    "telegraf": "^4.16.3"
   },
   "devDependencies": {
     "@babel/core": "^7.28.4",

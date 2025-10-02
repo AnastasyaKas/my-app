@@ -6,3 +6,8 @@
   NODE_VERSION = "20"
   HUSKY = "0"
   NPM_FLAGS = "--legacy-peer-deps --no-audit --no-fund"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

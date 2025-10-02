@@ -1,0 +1,53 @@
+
+
+.wrap {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* учитываем безопасную зону Telegram (ты уже завела var(--tg-safe-bottom)) */
+  padding: 8px 10px calc(8px + var(--tg-safe-bottom));
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(6px);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  z-index: 50;
+}
+
+.item {
+  text-decoration: none;
+  color: #F1F3F5;
+  min-height: 48px;           /* удобная зона для нажатия */
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 6px;
+  justify-content: center;
+  outline: none;
+  transition: transform .12s ease;
+}
+.item:active {
+  transform: scale(0.98); }
+
+.icon {
+  display: block;
+  width: 30px;
+  height: 30px;
+  fill: currentColor;
+  opacity: .8;
+}
+
+.active { color: #4361EE; } /* активный */
+
+
+.label {
+  font-size: 12px;
+  line-height: 1;
+  opacity: .85;
+}
+
+
