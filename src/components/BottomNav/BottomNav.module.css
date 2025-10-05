@@ -66,6 +66,7 @@
 
 .iconCourses {
   transform: scale(1.15); /* базовый размер, всегда чуть больше */
+
 }
 .active .iconCourses {
   transform: scale(1.25); /* чуть больше базового */
