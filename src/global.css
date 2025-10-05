@@ -1,5 +1,5 @@
 :root {
-  --bg: #0f172a; /* slate-900 */
+  --bg: #F5F6FA; /* slate-900 */
   --fg: #e2e8f0; /* slate-200 */
   --tg-safe-bottom: env(safe-area-inset-bottom, 0px);
 }
@@ -15,5 +15,5 @@ body {
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, 'Apple Color Emoji', 'Segoe UI Emoji';
 }
 
-body.tg-light { background: #ffffff; color: #111827; }
-body.tg-dark  { background: #0f172a; color: #e2e8f0; }
+/*body.tg-light { background: #ffffff; color: #111827; }*/
+/*body.tg-dark  { background: #0f172a; color: #e2e8f0; }*/
