@@ -11,7 +11,7 @@ import Courses from './pages/Courses';
 
 import BottomNav from './components/BottomNav/BottomNav';
 
-import styles from './styles/App.module.css';
+import * as styles from './styles/App.module.css';
 import './global.css';
 
 export default function App() {
