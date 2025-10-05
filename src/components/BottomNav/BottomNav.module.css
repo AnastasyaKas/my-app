@@ -1,25 +1,22 @@
-
-
 .wrap {
   position: fixed;
   left: 0;
   right: 0;
   bottom: 0;
-  /* учитываем безопасную зону Telegram (ты уже завела var(--tg-safe-bottom)) */
   padding: 8px 10px calc(8px + var(--tg-safe-bottom));
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 8px;
   background: #FFFFFF;
   backdrop-filter: blur(6px);
-  border-top: 1px solid rgba(255,255,255,0.08);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
   z-index: 50;
 }
 
 .item {
   text-decoration: none;
-  color: #F1F3F5;
-  min-height: 48px;           /* удобная зона для нажатия */
+  color: #868E96; /* цвет текста (label) по умолчанию */
+  min-height: 48px;
   border-radius: 12px;
   display: flex;
   flex-direction: column;
@@ -28,26 +25,47 @@
   padding: 8px 6px;
   justify-content: center;
   outline: none;
-  transition: transform .12s ease;
+  transition: transform 0.12s ease, color 0.15s ease;
 }
-.item:active {
-  transform: scale(0.98); }
 
+.item:active {
+  transform: scale(0.98);
+}
+
+/* Иконка */
 .icon {
   display: block;
-  width: 30px;
-  height: 30px;
-  fill: currentColor;
-  opacity: .8;
+  width: 28px;
+  height: 28px;
+  color: #F1F3F5;
+  fill: currentColor;       /* если внутри path нет своего fill, подхватится отсюда */
+  stroke: currentColor;/* неактивная иконка — светлая */
+  opacity: 0.9;
+  transition: fill 0.2s ease, transform 0.15s ease;
 }
 
-.active { color: #4361EE; } /* активный */
-
-
+/* Подпись */
 .label {
-  font-size: 12px;
+  font-size: 11px;
   line-height: 1;
-  opacity: .85;
+  color: #868E96; /* серый */
+  opacity: 0.9;
+  transition: color 0.2s ease;
+  font-weight: 400;
+  font-family: 'Inter', sans-serif;
 }
 
+/* Активный пункт меню */
+.active .icon {
+  color: #4361EE; /* синяя иконка */
+  transform: scale(1.05);
+}
 
+.active .label {
+  color: #4361EE; /* синий текст */
+}
+
+.iconCourses {
+  width: 46px;
+  height: 35px;
+}
