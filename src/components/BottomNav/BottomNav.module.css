@@ -23,7 +23,7 @@
   align-items: center;
   gap: 6px;
   padding: 8px 6px;
-  justify-content: center;
+  justify-content: flex-start;
   outline: none;
   transition: transform 0.12s ease, color 0.15s ease;
 }
@@ -38,10 +38,9 @@
   width: 28px;
   height: 28px;
   color: #F1F3F5;
-  fill: currentColor;       /* если внутри path нет своего fill, подхватится отсюда */
-  stroke: currentColor;/* неактивная иконка — светлая */
-  opacity: 0.9;
-  transition: fill 0.2s ease, transform 0.15s ease;
+  fill: currentColor;
+  stroke: currentColor;
+  transition: transform 0.2s ease, color 0.2s ease;
 }
 
 /* Подпись */
@@ -66,6 +65,8 @@
 }
 
 .iconCourses {
-  width: 46px;
-  height: 35px;
+  transform: scale(1.15); /* базовый размер, всегда чуть больше */
+}
+.active .iconCourses {
+  transform: scale(1.25); /* чуть больше базового */
 }

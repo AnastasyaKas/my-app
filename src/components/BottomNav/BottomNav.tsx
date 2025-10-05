@@ -79,7 +79,7 @@ function IconPractices() {
   );
 }
 
-function IconCourses() {
+function IconCourses({ className }: { className?: string }) {
   return (
     <svg width="46" height="35" viewBox="0 0 46 35" className={`${styles.icon} ${styles.iconCourses}`}   fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
