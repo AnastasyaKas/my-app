@@ -1,6 +1,8 @@
 // src/App.tsx
 import { useEffect } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
+import { DevErrorBoundary } from './components/DevErrorBoundary';
+
 import { tg } from './lib/telegram';
 
 import Home from './pages/Home';
@@ -18,11 +20,11 @@ export default function App() {
   useEffect(() => {
     if (!webApp) return;
 
-    // Сообщаем Telegram, что готовы и растягиваемся
+    // Сообщаем Telegram, что готовы и разворачиваемся
     webApp.ready();
     webApp.expand();
 
-    // Применяем тему
+    // Тема
     const applyTheme = () => {
       const isDark = webApp.colorScheme === 'dark';
       document.body.classList.toggle('tg-dark', isDark);
@@ -33,7 +35,7 @@ export default function App() {
     applyTheme();
     webApp.onEvent('themeChanged', applyTheme);
 
-    // Прячем системные кнопки Телеграма (если не нужны)
+    // Прячем системные кнопки Телеграма
     webApp.MainButton.hide();
     webApp.BackButton.hide();
 
@@ -43,20 +45,22 @@ export default function App() {
   }, [webApp]);
 
   return (
-    <BrowserRouter>
-      <div className={styles.wrap}>
-        {/* контент страниц; отступ снизу, чтобы не наезжать на нижнее меню */}
-        <main style={{ padding: '16px', paddingBottom: '96px' }}>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/tests" element={<Tests />} />
-            <Route path="/practices" element={<Practices />} />
-            <Route path="/courses" element={<Courses />} />
-          </Routes>
-        </main>
+    <DevErrorBoundary>
+      <HashRouter>
+        <div className={styles.wrap}>
+          {/* Контент страниц. Отступ снизу — под нижнее меню */}
+          <main style={{ padding: '16px', paddingBottom: '96px' }}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/tests" element={<Tests />} />
+              <Route path="/practices" element={<Practices />} />
+              <Route path="/courses" element={<Courses />} />
+            </Routes>
+          </main>
 
-        <BottomNav />
-      </div>
-    </BrowserRouter>
+          <BottomNav />
+        </div>
+      </HashRouter>
+    </DevErrorBoundary>
   );
 }
