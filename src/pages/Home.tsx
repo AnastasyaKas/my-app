@@ -5,10 +5,10 @@ import * as sRaw from './Home.module.css';
 const s = (sRaw as any).default ?? (sRaw as any);
 
 // 👉 импортируем картинки из src/assets (работает и в Vite, и в CRA)
-import imgResources from '../assets/resources.png';
-import imgMotivation from '../assets/motivation.png';
-import imgSelfgrowth from '../assets/selfgrowth.png';
-import imgPsychology from '../assets/psychology.png';
+import imgResources from '../assets/resources.svg';
+import imgMotivation from '../assets/motivation.svg';
+import imgSelfgrowth from '../assets/selfgrowth.svg';
+import imgPsychology from '../assets/psychology.svg';
 
 function getDailyQuote(d: Date) {
   const quotes = [
@@ -78,11 +78,11 @@ export default function Home() {
       <section className={s.gridTwo} aria-label="Тематики">
         <button className={`${s.tile} ${s.withImg}`} onClick={() => nav('/practices')}>
           <div className={s.tileTitle}>Полезные ресурсы</div>
-          <img src={imgResources} alt="" className={s.tileImage}/>
+          <img src={imgResources} alt="" aria-hidden="true"  className={s.tileImage}/>
         </button>
         <button className={`${s.tile} ${s.withImg}`} onClick={() => nav('/practices')}>
           <div className={s.tileTitle}>Мотивация</div>
-          <img src={imgMotivation} alt="" className={s.tileImage}/>
+          <img src={imgMotivation} alt="" aria-hidden="true"  className={s.tileImage}/>
         </button>
       </section>
 
@@ -90,11 +90,11 @@ export default function Home() {
       <section className={s.gridTwo} aria-label="Тематики">
         <button className={`${s.tile} ${s.withImg}`} onClick={() => nav('/practices')}>
           <div className={s.tileTitle}>Саморазвитие</div>
-          <img src={imgSelfgrowth} alt="" className={s.tileImage}/>
+          <img src={imgSelfgrowth} alt="" aria-hidden="true"  className={s.tileImage}/>
         </button>
         <button className={`${s.tile} ${s.withImg}`} onClick={() => nav('/practices')}>
           <div className={s.tileTitle}>Психология</div>
-          <img src={imgPsychology} alt="" className={s.tileImage}/>
+          <img src={imgPsychology} alt="" aria-hidden="true"  className={s.tileImage}/>
         </button>
       </section>
     </div>
