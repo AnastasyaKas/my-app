@@ -28,13 +28,6 @@
   text-align: center;
 }
 
-.author {
-  margin-top: 8px;
-  font-size: 14px;
-  color: #868e96;
-  text-align: center;
-}
-
 /* ---------- Сетка 2x ---------- */
 .gridTwo {
   display: grid;
@@ -48,17 +41,30 @@
   /* Переменные по умолчанию */
   --bg: #fff;
   --fg: #343A40;
+  --img: clamp(40px, 6vw, 56px); /* единый размер иконки для расчётов */
+  --pad: 12px;
 
   background: var(--bg);
   color: var(--fg);
 
   border: none;
   border-radius: 16px;
-  padding: 12px;
+  padding: var(--pad);
   text-align: left;
   box-shadow: 0 2px 8px rgba(16, 24, 40, 0.06);
   cursor: pointer;
   transition: transform .12s ease, box-shadow .2s ease;
+
+  /* Выравнивание содержимого */
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  overflow: hidden;
+
+  /* Одинаковая высота для всех плиток */
+  height: clamp(96px, 22vw, 128px);
 }
 
 .tile:active {
@@ -72,20 +78,33 @@
 
 /* ---------- Заголовок плитки ---------- */
 .tileTitle {
+  position: relative;
+  z-index: 2;
   font-family: 'Inter', sans-serif;
   font-size: 14px;
-  color: inherit; /* наследует цвет плитки */
+  color: inherit;
   margin: 0 0 4px;
   line-height: 1.2;
   font-weight: 600;
 }
 
-/* ---------- Подпись под заголовком ---------- */
-.tileNote {
-  font-size: 12px;
-  color: #868E96;
-  margin: 0;
-  line-height: 1.3;
+/* ---------- Картинка в правом нижнем углу ---------- */
+.tileImage {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  width: var(--img);
+  height: var(--img);
+  object-fit: contain;
+  opacity: 0.9;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Доп.отступы, чтобы текст не наезжал на картинку */
+.withImg {
+  padding-right: calc(var(--pad) + var(--img) + 8px);
+  padding-bottom: calc(var(--pad) + var(--img) + 8px);
 }
 
 /* ---------- Цветные плитки ---------- */
@@ -111,7 +130,7 @@
   box-shadow: 0 6px 16px rgba(67, 97, 238, 0.4);
 }
 
-/* Для уверенности перекрашиваем заголовок внутри цветных плиток */
+/* На всякий случай фикс цвета заголовка на цветных плитках */
 .personality .tileTitle,
 .fear .tileTitle {
   color: #fff;

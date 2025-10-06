@@ -3,10 +3,8 @@ import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as sRaw from './Home.module.css';
 
-// 👇 гарантирует, что стили подключатся и при default, и при именованном экспорте
 const s = (sRaw as any).default ?? (sRaw as any);
 
-// Простейший генератор «цитаты дня» (пока локально, потом подключим API)
 function getDailyQuote(d: Date) {
   const quotes = [
     { text: 'Начни с малого — главное начать.'},
@@ -73,21 +71,25 @@ export default function Home() {
 
       {/* Две плитки: ресурсы / мотивация */}
       <section className={s.gridTwo} aria-label="Тематики">
-        <button className={s.tile} onClick={() => nav('/practices')}>
+        <button className={`${s.tile} ${s.withImg}`} onClick={() => nav('/practices')}>
           <div className={s.tileTitle}>Полезные ресурсы</div>
+          <img src="/images/resources.png" alt="" className={s.tileImage}/>
         </button>
-        <button className={s.tile} onClick={() => nav('/practices')}>
+        <button className={`${s.tile} ${s.withImg}`} onClick={() => nav('/practices')}>
           <div className={s.tileTitle}>Мотивация</div>
+          <img src="/images/motivation.png" alt="" className={s.tileImage}/>
         </button>
       </section>
 
       {/* Две плитки: саморазвитие / психология */}
       <section className={s.gridTwo} aria-label="Тематики">
-        <button className={s.tile} onClick={() => nav('/practices')}>
+        <button className={`${s.tile} ${s.withImg}`} onClick={() => nav('/practices')}>
           <div className={s.tileTitle}>Саморазвитие</div>
+          <img src="/images/selfgrowth.png" alt="" className={s.tileImage}/>
         </button>
-        <button className={s.tile} onClick={() => nav('/practices')}>
+        <button className={`${s.tile} ${s.withImg}`} onClick={() => nav('/practices')}>
           <div className={s.tileTitle}>Психология</div>
+          <img src="/images/psychology.png" alt="" className={s.tileImage}/>
         </button>
       </section>
     </div>
