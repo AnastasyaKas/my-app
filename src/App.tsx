@@ -41,7 +41,7 @@ export default function App() {
   return (
     <HashRouter>
       <div className={styles.wrap}>
-        <main style={{ padding: '16px', paddingBottom: '96px' }}>
+        <main >
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/tests" element={<Tests />} />

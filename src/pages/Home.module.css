@@ -1,17 +1,18 @@
 /* src/pages/Home.module.css */
 .page {
-  max-width: 420px;
+  width: 100%;
+  max-width: 600px;
   margin: 0 auto;
-  padding: 16px;
+  padding: 8px clamp(12px, 4vw, 24px) clamp(12px, 4vw, 24px);
 }
 
 /* Карточка с цитатой */
 .quoteCard {
   padding: 24px 16px;
   text-align: center;
-  background: linear-gradient(135deg, #F5F6FA, #FFFFFF);
+  background: linear-gradient(135deg, #f7f9ff, #ffffff);
   border-radius: 16px;
-  margin: 16px auto 20px;
+  margin: 4px auto 20px;
   max-width: 360px;
 }
 
@@ -36,7 +37,7 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 12px;
-  margin: 16px 0;
+  margin: 24px 0;
 }
 
 /* Плитки */
@@ -51,6 +52,11 @@
   transition: transform .12s ease, box-shadow .2s ease;
 }
 .tile:active { transform: scale(0.98); }
+
+.tile:hover {
+  box-shadow: 0 4px 10px rgba(16, 24, 40, 0.08);
+  transform: translateY(-2px);
+}
 
 .tag {
   display: inline-block;
