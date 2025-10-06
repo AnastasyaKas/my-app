@@ -1,4 +1,6 @@
 /* src/pages/Home.module.css */
+
+/* ---------- Общая страница ---------- */
 .page {
   width: 100%;
   max-width: 600px;
@@ -6,7 +8,7 @@
   padding: 8px clamp(12px, 4vw, 24px) clamp(12px, 4vw, 24px);
 }
 
-/* Карточка с цитатой */
+/* ---------- Цитата дня ---------- */
 .quoteCard {
   padding: 24px 16px;
   text-align: center;
@@ -17,12 +19,13 @@
 }
 
 .quote {
+  font-family: 'Open Sans', sans-serif;
   font-style: italic;
-  font-size: 16px;
+  font-size: 12px;
   line-height: 1.5;
-  color: #495057;
+  color: #868E96;
   margin: 0;
-  text-align: center; /* по центру */
+  text-align: center;
 }
 
 .author {
@@ -32,7 +35,7 @@
   text-align: center;
 }
 
-/* Сетка 2x */
+/* ---------- Сетка 2x ---------- */
 .gridTwo {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -40,24 +43,81 @@
   margin: 24px 0;
 }
 
-/* Плитки */
+/* ---------- Плитки ---------- */
 .tile {
+  /* Переменные по умолчанию */
+  --bg: #fff;
+  --fg: #343A40;
+
+  background: var(--bg);
+  color: var(--fg);
+
   border: none;
   border-radius: 16px;
   padding: 12px;
   text-align: left;
-  background: #fff;
   box-shadow: 0 2px 8px rgba(16, 24, 40, 0.06);
   cursor: pointer;
   transition: transform .12s ease, box-shadow .2s ease;
 }
-.tile:active { transform: scale(0.98); }
+
+.tile:active {
+  transform: scale(0.98);
+}
 
 .tile:hover {
   box-shadow: 0 4px 10px rgba(16, 24, 40, 0.08);
   transform: translateY(-2px);
 }
 
+/* ---------- Заголовок плитки ---------- */
+.tileTitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: inherit; /* наследует цвет плитки */
+  margin: 0 0 4px;
+  line-height: 1.2;
+  font-weight: 600;
+}
+
+/* ---------- Подпись под заголовком ---------- */
+.tileNote {
+  font-size: 12px;
+  color: #868E96;
+  margin: 0;
+  line-height: 1.3;
+}
+
+/* ---------- Цветные плитки ---------- */
+.personality {
+  --bg: linear-gradient(135deg, #EF476F, #FFD166);
+  --fg: #fff;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.personality:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(239, 71, 111, 0.4);
+}
+
+.fear {
+  --bg: linear-gradient(135deg, #4361EE, #F5F6FA);
+  --fg: #fff;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.fear:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(67, 97, 238, 0.4);
+}
+
+/* Для уверенности перекрашиваем заголовок внутри цветных плиток */
+.personality .tileTitle,
+.fear .tileTitle {
+  color: #fff;
+}
+
+/* ---------- Теги ---------- */
 .tag {
   display: inline-block;
   font-size: 11px;
@@ -66,19 +126,4 @@
   padding: 2px 8px;
   border-radius: 999px;
   margin-bottom: 6px;
-}
-
-.tileTitle {
-  font-size: 14px;
-  color: #212529;
-  margin: 0 0 4px;
-  line-height: 1.2;
-  font-weight: 600;
-}
-
-.tileNote {
-  font-size: 12px;
-  color: #868E96;
-  margin: 0;
-  line-height: 1.3;
 }

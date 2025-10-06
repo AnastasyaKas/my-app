@@ -63,43 +63,31 @@ export default function Home() {
 
       {/* Две плитки: тесты */}
       <section className={s.gridTwo} aria-label="Быстрые тесты">
-        <button className={s.tile} onClick={() => nav('/tests/personality')}>
-          <div className={s.tag}>Тесты</div>
-          <div className={s.tileTitle}>Тест на тип личности</div>
-          <div className={s.tileNote}>10 вопросов · быстрый результат</div>
+        <button className={`${s.tile} ${s.personality}`} onClick={() => nav('/tests/personality')}>
+          <div className={s.tileTitle}>Кто ты по типу личности?</div>
         </button>
-        <button className={s.tile} onClick={() => nav('/tests/fear')}>
-          <div className={s.tag}>Тесты</div>
-          <div className={s.tileTitle}>Тест на главный страх</div>
-          <div className={s.tileNote}>10 вопросов · быстрый результат</div>
+        <button className={`${s.tile} ${s.fear}`} onClick={() => nav('/tests/fear')}>
+          <div className={s.tileTitle}>Какой страх живёт в тебе?</div>
         </button>
       </section>
 
       {/* Две плитки: ресурсы / мотивация */}
-      <section className={s.gridTwo} aria-label="Ресурсы и мотивация">
+      <section className={s.gridTwo} aria-label="Тематики">
         <button className={s.tile} onClick={() => nav('/practices')}>
-          <div className={s.tag}>Ресурсы</div>
           <div className={s.tileTitle}>Полезные ресурсы</div>
-          <div className={s.tileNote}>#практика · ссылки на посты</div>
         </button>
         <button className={s.tile} onClick={() => nav('/practices')}>
-          <div className={s.tag}>Мотивация</div>
           <div className={s.tileTitle}>Мотивация</div>
-          <div className={s.tileNote}>#мотивация · ссылки на посты</div>
         </button>
       </section>
 
       {/* Две плитки: саморазвитие / психология */}
       <section className={s.gridTwo} aria-label="Тематики">
         <button className={s.tile} onClick={() => nav('/practices')}>
-          <div className={s.tag}>Темы</div>
           <div className={s.tileTitle}>Саморазвитие</div>
-          <div className={s.tileNote}>#саморазвитие · посты из канала</div>
         </button>
         <button className={s.tile} onClick={() => nav('/practices')}>
-          <div className={s.tag}>Темы</div>
           <div className={s.tileTitle}>Психология</div>
-          <div className={s.tileNote}>#психология · посты из канала</div>
         </button>
       </section>
     </div>
