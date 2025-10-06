@@ -2,8 +2,13 @@
 import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as sRaw from './Home.module.css';
-
 const s = (sRaw as any).default ?? (sRaw as any);
+
+// 👉 импортируем картинки из src/assets (работает и в Vite, и в CRA)
+import imgResources from '../assets/resources.png';
+import imgMotivation from '../assets/motivation.png';
+import imgSelfgrowth from '../assets/selfgrowth.png';
+import imgPsychology from '../assets/psychology.png';
 
 function getDailyQuote(d: Date) {
   const quotes = [
@@ -73,11 +78,11 @@ export default function Home() {
       <section className={s.gridTwo} aria-label="Тематики">
         <button className={`${s.tile} ${s.withImg}`} onClick={() => nav('/practices')}>
           <div className={s.tileTitle}>Полезные ресурсы</div>
-          <img src="/images/resources.png" alt="" className={s.tileImage}/>
+          <img src={imgResources} alt="" className={s.tileImage}/>
         </button>
         <button className={`${s.tile} ${s.withImg}`} onClick={() => nav('/practices')}>
           <div className={s.tileTitle}>Мотивация</div>
-          <img src="/images/motivation.png" alt="" className={s.tileImage}/>
+          <img src={imgMotivation} alt="" className={s.tileImage}/>
         </button>
       </section>
 
@@ -85,11 +90,11 @@ export default function Home() {
       <section className={s.gridTwo} aria-label="Тематики">
         <button className={`${s.tile} ${s.withImg}`} onClick={() => nav('/practices')}>
           <div className={s.tileTitle}>Саморазвитие</div>
-          <img src="/images/selfgrowth.png" alt="" className={s.tileImage}/>
+          <img src={imgSelfgrowth} alt="" className={s.tileImage}/>
         </button>
         <button className={`${s.tile} ${s.withImg}`} onClick={() => nav('/practices')}>
           <div className={s.tileTitle}>Психология</div>
-          <img src="/images/psychology.png" alt="" className={s.tileImage}/>
+          <img src={imgPsychology} alt="" className={s.tileImage}/>
         </button>
       </section>
     </div>
