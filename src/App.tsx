@@ -8,6 +8,7 @@ import Tests from './pages/Tests';
 import Practices from './pages/Practices';
 import Courses from './pages/Courses';
 import BottomNav from './components/BottomNav/BottomNav';
+import PersonalityTest from './pages/tests/Personality';
 
 import * as styles from './styles/App.module.css';
 import './global.css';
@@ -48,6 +49,7 @@ export default function App() {
             <Route path="/practices" element={<Practices />} />
             <Route path="/courses" element={<Courses />} />
             <Route path="*" element={<Home />} />
+            <Route path="/tests/personality" element={<PersonalityTest />} />
           </Routes>
         </main>
         <BottomNav />

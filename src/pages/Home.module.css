@@ -1,20 +1,22 @@
-/* src/pages/Home.module.css */
-
 /* ---------- Общая страница ---------- */
 .page {
   width: 100%;
   max-width: 600px;
   margin: 0 auto;
   padding: 8px clamp(12px, 4vw, 24px) clamp(12px, 4vw, 24px);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* ---------- Цитата дня ---------- */
 .quoteCard {
-  padding: 24px 16px;
+  padding: 20px 16px;
   text-align: center;
   background: linear-gradient(135deg, #f7f9ff, #ffffff);
   border-radius: 16px;
-  margin: 4px auto 20px;
+  margin: 4px auto 16px;
   max-width: 360px;
 }
 
@@ -28,20 +30,25 @@
   text-align: center;
 }
 
-/* ---------- Сетка 2x ---------- */
+/* ---------- Общая сетка 2x (центр группы) ---------- */
 .gridTwo {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-  margin: 24px 0;
+  grid-template-columns: repeat(2, 164px); /* две колонки по 164px */
+  gap: 24px;                                /* равномерный gap */
+  width: 100%;
+  justify-content: center;/* ширина по контенту */
+  margin: 16px 0;                         /* центрируем всю группу */
 }
 
-/* ---------- Плитки ---------- */
+/* ---------- Базовая плитка (размер, фон, эффекты) ---------- */
 .tile {
   --bg: #fff;
   --fg: #343A40;
-  --img: clamp(40px, 6vw, 56px);
+  --img: 48px;
   --pad: 12px;
+
+  width: 164px;
+  height: 88px;
 
   background: var(--bg);
   color: var(--fg);
@@ -49,41 +56,54 @@
   border: none;
   border-radius: 16px;
   padding: var(--pad);
-  text-align: left;
   box-shadow: 0 2px 8px rgba(16, 24, 40, 0.06);
   cursor: pointer;
   transition: transform .12s ease, box-shadow .2s ease;
 
   position: relative;
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
   overflow: hidden;
-
-  height: clamp(96px, 22vw, 128px);
 }
 
 .tile:active { transform: scale(0.98); }
+.tile:hover  { box-shadow: 0 4px 10px rgba(16, 24, 40, 0.08); }
 
-.tile:hover {
-  box-shadow: 0 4px 10px rgba(16, 24, 40, 0.08);
-  transform: translateY(-2px);
+/* ---------- Варианты выравнивания контента ---------- */
+/* Для первых двух (тесты): центр по вертикали и горизонтали */
+.centerContent {
+  align-items: center;     /* по горизонтали */
+  justify-content: center; /* по вертикали */
+  text-align: center;
 }
 
-/* ---------- Заголовок плитки ---------- */
+/* Для остальных четырёх: верхний левый угол */
+.topLeftContent {
+  align-items: flex-start;    /* по горизонтали */
+  justify-content: flex-start;/* по вертикали */
+  text-align: left;
+}
+
+/* ---------- Заголовок/текст плитки ---------- */
 .tileTitle {
   position: relative;
   z-index: 2;
   font-family: 'Inter', sans-serif;
   font-size: 14px;
-  color: inherit; /* ← наследует var(--fg) от .tile / темы */
-  margin: 0 0 4px;
-  line-height: 1.2;
+  color: inherit;
+  margin: 0;
+  line-height: 1.35;
   font-weight: 600;
 }
 
-/* ---------- Картинка в правом нижнем углу ---------- */
+/* Если нужен второстепенный текст под заголовком */
+.tileNote {
+  font-size: 12px;
+  color: #868E96;
+  margin-top: 4px;
+  line-height: 1.3;
+}
+
+/* ---------- Картинка в правом нижнем углу (для 4-х нижних) ---------- */
 .tileImage {
   position: absolute;
   right: 8px;
@@ -96,41 +116,29 @@
   pointer-events: none;
 }
 
-/* Доп.отступы под иконку */
+/* Добавить «воздуха» под картинку в углу */
 .withImg {
-  --bg: linear-gradient(180deg, #FFFFFF, #F5F6FA);
   padding-right: calc(var(--pad) + var(--img) + 8px);
   padding-bottom: calc(var(--pad) + var(--img) + 8px);
 }
 
-/* ---------- Цветные плитки ---------- */
+/* ---------- Цветные варианты плиток (для тестов) ---------- */
 .personality {
   --bg: linear-gradient(135deg, #EF476F, #FFD166);
   --fg: #fff;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-.personality:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 16px rgba(239, 71, 111, 0.4);
-}
-
 .fear {
   --bg: linear-gradient(135deg, #4361EE, #F5F6FA);
   --fg: #fff;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-.fear:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 16px rgba(67, 97, 238, 0.4);
 }
 
-/* ---------- Теги ---------- */
-.tag {
-  display: inline-block;
-  font-size: 11px;
-  color: #4361EE;
-  background: rgba(67, 97, 238, .08);
-  padding: 2px 8px;
-  border-radius: 999px;
-  margin-bottom: 6px;
+/* ---------- Адаптив на очень узких экранах ---------- */
+@media (max-width: 360px) {
+  .gridTwo {
+    grid-template-columns: 1fr; /* по одной плитке в ряд */
+    width: 100%;
+  }
+  .tile {
+    width: 100%;
+  }
 }

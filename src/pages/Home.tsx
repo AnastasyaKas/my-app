@@ -64,37 +64,46 @@ export default function Home() {
         <p className={s.quote}>“{quote.text}”</p>
       </section>
 
-      {/* Две плитки: тесты */}
+      {/* Две плитки: тесты (контент по центру) */}
       <section className={s.gridTwo} aria-label="Быстрые тесты">
-        <button className={`${s.tile} ${s.personality}`} onClick={() => nav('/tests/personality')}>
+        <button
+          className={`${s.tile} ${s.centerContent} ${s.personality}`}
+          onClick={() => nav('/tests/personality')}
+        >
           <div className={s.tileTitle}>Кто ты по типу личности?</div>
         </button>
-        <button className={`${s.tile} ${s.fear}`} onClick={() => nav('/tests/fear')}>
+
+        <button
+          className={`${s.tile} ${s.centerContent} ${s.fear}`}
+          onClick={() => nav('/tests/fear')}
+        >
           <div className={s.tileTitle}>Какой страх живёт в тебе?</div>
         </button>
       </section>
 
-      {/* Две плитки: ресурсы / мотивация */}
-      <section className={s.gridTwo} aria-label="Тематики">
-        <button className={`${s.tile} ${s.withImg}`} onClick={() => nav('/practices')}>
+      {/* Две плитки: ресурсы / мотивация (верхний левый угол, с картинкой) */}
+      <section className={s.gridTwo} aria-label="Ресурсы и мотивация">
+        <button className={`${s.tile} ${s.topLeftContent} ${s.withImg}`} onClick={() => nav('/practices')}>
           <div className={s.tileTitle}>Полезные ресурсы</div>
-          <img src={imgResources} alt="" aria-hidden="true"  className={s.tileImage}/>
+          <img src={imgResources} alt="" aria-hidden="true" className={s.tileImage} />
         </button>
-        <button className={`${s.tile} ${s.withImg}`} onClick={() => nav('/practices')}>
+
+        <button className={`${s.tile} ${s.topLeftContent} ${s.withImg}`} onClick={() => nav('/practices')}>
           <div className={s.tileTitle}>Мотивация</div>
-          <img src={imgMotivation} alt="" aria-hidden="true"  className={s.tileImage}/>
+          <img src={imgMotivation} alt="" aria-hidden="true" className={s.tileImage} />
         </button>
       </section>
 
-      {/* Две плитки: саморазвитие / психология */}
+      {/* Две плитки: саморазвитие / психология (верхний левый угол, с картинкой) */}
       <section className={s.gridTwo} aria-label="Тематики">
-        <button className={`${s.tile} ${s.withImg}`} onClick={() => nav('/practices')}>
+        <button className={`${s.tile} ${s.topLeftContent} ${s.withImg}`} onClick={() => nav('/practices')}>
           <div className={s.tileTitle}>Саморазвитие</div>
-          <img src={imgSelfgrowth} alt="" aria-hidden="true"  className={s.tileImage}/>
+          <img src={imgSelfgrowth} alt="" aria-hidden="true" className={s.tileImage} />
         </button>
-        <button className={`${s.tile} ${s.withImg}`} onClick={() => nav('/practices')}>
+
+        <button className={`${s.tile} ${s.topLeftContent} ${s.withImg}`} onClick={() => nav('/practices')}>
           <div className={s.tileTitle}>Психология</div>
-          <img src={imgPsychology} alt="" aria-hidden="true"  className={s.tileImage}/>
+          <img src={imgPsychology} alt="" aria-hidden="true" className={s.tileImage} />
         </button>
       </section>
     </div>
