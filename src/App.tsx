@@ -46,10 +46,10 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/tests" element={<Tests />} />
+            <Route path="/tests/personality" element={<PersonalityTest />} /> {/* <-- ПЕРЕНЕСЕНО ВЫШЕ */}
             <Route path="/practices" element={<Practices />} />
             <Route path="/courses" element={<Courses />} />
             <Route path="*" element={<Home />} />
-            <Route path="/tests/personality" element={<PersonalityTest />} />
           </Routes>
         </main>
         <BottomNav />
