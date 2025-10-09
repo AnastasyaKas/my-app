@@ -1,75 +1,94 @@
 /* src/pages/tests/Personality.module.css */
+
 .page {
   max-width: 600px;
   margin: 0 auto;
   padding: 16px;
+  color: #0f172a;
+  font-family: Inter, system-ui, sans-serif;
 }
 
-.card {
-  background: #fff;
-  border-radius: 16px;
-  box-shadow: 0 2px 8px rgba(16, 24, 40, .06);
-  padding: 16px;
-}
-
-.question {
-  font-size: 16px;
-  font-weight: 600;
-  color: #212529;
-  margin: 0 0 12px;
-  line-height: 1.35;
-}
-
-.answers {
-  display: grid;
-  gap: 8px;
-}
-
-.btn {
-  border: none;
-  border-radius: 12px;
-  padding: 12px;
-  text-align: left;
-  background: #f8f9fa;
-  color: #343a40;
-  cursor: pointer;
-  transition: transform .1s ease, box-shadow .2s ease, background .2s ease;
-}
-.btn:active { transform: scale(.98); }
-.btn:hover  { background: #f1f3f5; }
-
-.progress {
-  margin-top: 12px;
-  font-size: 12px;
-  color: #868e96;
-}
-
-.actions {
-  margin-top: 16px;
+.header {
   display: flex;
-  gap: 8px;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
 }
 
-.primary {
-  background: #4361EE;
-  color: #fff;
-}
-.ghost {
-  background: transparent;
-  color: #4361EE;
-  border: 1px solid rgba(67,97,238,.3);
-}
-
-.result {
-  text-align: center;
-}
 .title {
   font-size: 18px;
   font-weight: 700;
-  margin: 8px 0 4px;
-  color: #212529;
+  margin: 0;
 }
-.lead {
-  color: #495057;
+
+.progress {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.questionCard {
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 6px 18px rgba(16,24,40,0.06);
+  margin-bottom: 16px;
+}
+
+.questionText {
+  margin: 0 0 12px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.options {
+  display: grid;
+  gap: 10px;
+}
+
+.option {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #f8fafc;
+  border: 1px solid rgba(16,24,40,0.03);
+  cursor: pointer;
+  transition: transform .12s ease, background .12s ease;
+  text-align: left;
+}
+
+.option:hover { transform: translateY(-3px); background: #f1f5f9; }
+
+.optionLetter {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: #e6edf8;
+  color: #0f172a;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+.optionText {
+  flex: 1;
   font-size: 14px;
+  color: #111827;
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.back {
+  background: transparent;
+  border: none;
+  color: #6b7280;
+  cursor: pointer;
+  padding: 6px 8px;
+  border-radius: 8px;
 }
