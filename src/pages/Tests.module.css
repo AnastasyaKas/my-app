@@ -1,0 +1,58 @@
+.page {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 16px;
+  color: #0f172a;
+}
+
+.header {
+  margin-bottom: 12px;
+}
+.title {
+  margin: 0 0 4px;
+  font-size: 20px;
+}
+.subtitle {
+  margin: 0;
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.list {
+  display: grid;
+  gap: 12px;
+}
+
+.card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 2px 8px rgba(16,24,40,0.06);
+}
+
+.cardInfo { flex: 1; }
+
+.cardTitle {
+  margin: 0 0 4px;
+  font-size: 15px;
+}
+.cardSubtitle {
+  margin: 0;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.actions { display: flex; align-items: center; gap: 8px; }
+
+.button {
+  background: #4361EE;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+}

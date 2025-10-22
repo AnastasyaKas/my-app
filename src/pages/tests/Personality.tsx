@@ -1,128 +1,104 @@
-import React, { useState, useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
+import RAW from './PersonalityData'; // убедись: точный регистр файла
+import * as sImport from './Personality.module.css';
+const s: any = (sImport && Object.keys(sImport).length) ? sImport : generateFallbackClasses();
 import { useNavigate } from 'react-router-dom';
-import * as s from './Personality.module.css';
-import QUESTIONS from './PersonalityData';
 
-const cls = (s as any) ?? {};
+/** Простая генерация запасных (fallback) классов — не мешают рендеру, если модуль CSS не загрузился */
+function generateFallbackClasses() {
+  const names = [
+    'page','header','title','progress','questionCard','questionText','options',
+    'option','optionLetter','optionText','footer','back'
+  ];
+  const out: Record<string,string> = {};
+  names.forEach(n => out[n] = `fallback-${n}`);
+  return out;
+}
 
-type AnswersMap = Record<string, 'A' | 'B' | 'C' | 'D'>;
+/** Универсальная функция распаковки модуля теста */
+function resolveTestModule(mod: any) {
+  if (!mod) return { questions: null, meta: undefined };
+  const m = mod.default ?? mod;
+  if (Array.isArray(m)) return { questions: m, meta: undefined };
+  if (Array.isArray(m?.questions)) return { questions: m.questions, meta: m.meta };
+  if (Array.isArray(mod?.QUESTIONS)) return { questions: mod.QUESTIONS, meta: mod?.meta };
+  return { questions: null, meta: undefined };
+}
 
 export default function PersonalityTest(): JSX.Element {
   const nav = useNavigate();
-  const [index, setIndex] = useState<number>(0);
-  const [answers, setAnswers] = useState<AnswersMap>({});
-  const total = QUESTIONS.length;
 
-  // текущий вопрос
-  const q = QUESTIONS[index];
+  const { questions, meta } = resolveTestModule(RAW);
 
-  const choose = (optId: 'A' | 'B' | 'C' | 'D') => {
-    setAnswers((prev) => ({ ...prev, [q.id]: optId }));
+  // если модуль не корректен — показать понятное сообщение (не падать)
+  if (!questions) {
+    console.warn('PersonalityData module did not expose questions. RAW =', RAW);
+    return (
+      <div className={s.page}>
+        <header className={s.header}>
+          <h2 className={s.title}>Тест: Кто ты по типу личности?</h2>
+        </header>
 
-    // небольшой тайм-аут, чтобы пользователь увидел визуальную отдачу
+        <div style={{ padding: 12, color: '#6b7280' }}>
+          Данные теста не загружены — проверь `PersonalityData` и регистр имени файла.
+        </div>
+
+        <div style={{ marginTop: 12 }}>
+          <button className={s.back} onClick={() => nav('/tests')}>Назад</button>
+        </div>
+      </div>
+    );
+  }
+
+  // локальное состояние теста (последовательная навигация по вопросам)
+  const total = questions.length;
+  const [index, setIndex] = useState(0);
+  const [answers, setAnswers] = useState<Record<string, 'A'|'B'|'C'|'D'>>({});
+
+  const choose = (opt: 'A'|'B'|'C'|'D') => {
+    const q = questions[index];
+    if (!q) return;
+    setAnswers(prev => ({ ...prev, [q.id ?? index]: opt }));
     setTimeout(() => {
-      if (index + 1 < total) {
-        setIndex((i) => i + 1);
-      } else {
-        // показ результата в том же компоненте
-        // вычисление результата будет в useMemo ниже
-        setIndex(total); // пометить как завершён
-      }
+      if (index + 1 < total) setIndex(i => i + 1);
+      else setIndex(total);
     }, 120);
   };
 
   const goBack = () => {
     if (index === 0) return nav(-1);
-    setIndex((i) => Math.max(0, i - 1));
+    setIndex(i => Math.max(0, i - 1));
   };
 
-  // подсчёт результата (A/B/C/D)
   const result = useMemo(() => {
-    if (index < total) return null; // ещё не завершили
-
-    const counts = { A: 0, B: 0, C: 0, D: 0 };
-    Object.values(answers).forEach((v) => {
-      if (v && counts.hasOwnProperty(v)) {
-        // @ts-ignore
-        counts[v]++;
-      }
-    });
-
-    // вычислим максимум — если всё ещё какие-то вопросы были не отвечены,
-    // учтём их как пропуск. В tie — порядок A->B->C->D
-    const order: ('A' | 'B' | 'C' | 'D')[] = ['A', 'B', 'C', 'D'];
-    let best: 'A' | 'B' | 'C' | 'D' = 'A';
-    for (const k of order) {
-      // @ts-ignore
-      if ((counts as any)[k] > (counts as any)[best]) best = k;
-    }
-
-    const descriptions: Record<string, { title: string; text: string; emoji: string }> = {
-      A: {
-        title: 'Экстраверт-Энтузиаст',
-        emoji: '🎉',
-        text: 'Ты энергичный, общительный и вдохновляешь других. Любишь быть в центре внимания и заражаешь позитивом.',
-      },
-      B: {
-        title: 'Аналитик-Мыслящий',
-        emoji: '🧩',
-        text: 'Ты рационален и логичен, всё тщательно продумываешь. Любишь порядок и предсказуемость, ценишь интеллект.',
-      },
-      C: {
-        title: 'Практик-Реалист',
-        emoji: '💪',
-        text: 'Ты человек дела. Не любишь пустые разговоры, предпочитаешь действовать. На тебя можно положиться.',
-      },
-      D: {
-        title: 'Творец-Мечтатель',
-        emoji: '🌈',
-        text: 'Ты креативный и чувствительный человек, видишь мир ярче других. Любишь необычные идеи и свободу самовыражения.',
-      },
-    };
-
-    return { counts, best, info: descriptions[best] };
+    if (index < total) return null;
+    const counts: Record<'A'|'B'|'C'|'D', number> = { A: 0, B: 0, C: 0, D: 0 };
+    Object.values(answers).forEach((v) => counts[v] = (counts[v] || 0) + 1);
+    const maxKey = (['A','B','C','D'] as const).reduce((a,b) => counts[a] >= counts[b] ? a : b);
+    const mapping = {
+      A: { title: 'Экстраверт-Энтузиаст', emoji: '🎉', text: 'Ты энергичный, общительный и вдохновляешь других.' },
+      B: { title: 'Аналитик-Мыслящий', emoji: '🧩', text: 'Ты рационален и логичен, всё тщательно продумываешь.' },
+      C: { title: 'Практик-Реалист', emoji: '💪', text: 'Ты человек дела. Предпочитаешь действовать.' },
+      D: { title: 'Творец-Мечтатель', emoji: '🌈', text: 'Ты креативный и чувствительный человек.' },
+    } as Record<string, {title:string, emoji:string, text:string}>;
+    return { counts, maxKey, info: mapping[maxKey] };
   }, [index, answers, total]);
 
-  // Если тест завершён — показываем результат
+  // финальный экран
   if (index >= total) {
-    if (!result) {
-      return <div className={cls.page ?? ''}>Ошибка: нет результата</div>;
-    }
     return (
-      <div className={cls.page ?? ''}>
-        <header className={cls.header ?? ''}>
-          <h2 className={cls.title ?? ''}>Результат</h2>
-        </header>
+      <div className={s.page}>
+        <header className={s.header}><h2 className={s.title}>{meta?.title ?? 'Результат'}</h2></header>
 
-        <section className={cls.questionCard ?? ''}>
-          <div style={{ fontSize: 22, marginBottom: 6 }}>{result.info.emoji} {result.info.title}</div>
-          <p style={{ marginTop: 6, color: '#374151' }}>{result.info.text}</p>
+        <section className={s.questionCard}>
+          <div style={{ fontSize: 22, marginBottom: 8 }}>{result?.info.emoji} {result?.info.title}</div>
+          <p style={{ color: '#374151' }}>{result?.info.text}</p>
 
           <div style={{ marginTop: 12, display: 'flex', gap: 8 }}>
+            <button className={s.back} onClick={() => nav('/tests')}>Пройти ещё тесты</button>
             <button
-              className={cls.back ?? ''}
-              onClick={() => {
-                // вернуться к списку тестов
-                nav('/tests');
-              }}
-            >
-              Пройти ещё тесты
-            </button>
-
-            <button
-              style={{
-                background: '#4361EE',
-                color: '#fff',
-                border: 'none',
-                padding: '8px 12px',
-                borderRadius: 10,
-                cursor: 'pointer',
-              }}
-              onClick={() => {
-                // сброс и повтор
-                setAnswers({});
-                setIndex(0);
-              }}
+              style={{ background: '#4361EE', color: '#fff', border: 'none', padding: '8px 12px', borderRadius: 10 }}
+              onClick={() => { setAnswers({}); setIndex(0); }}
             >
               Пройти снова
             </button>
@@ -132,37 +108,31 @@ export default function PersonalityTest(): JSX.Element {
     );
   }
 
-  // Обычный рендер вопроса
+  // текущий вопрос
+  const q = questions[index];
+
   return (
-    <div className={cls.page ?? ''}>
-      <header className={cls.header ?? ''}>
-        <h2 className={cls.title ?? ''}>Кто ты по типу личности?</h2>
-        <div className={cls.progress ?? ''}>{index + 1} / {total}</div>
+    <div className={s.page}>
+      <header className={s.header}>
+        <h2 className={s.title}>{meta?.title ?? 'Тест'}</h2>
+        <div className={s.progress}>{index + 1} / {total}</div>
       </header>
 
-      <section className={cls.questionCard ?? ''}>
-        <h3 className={cls.questionText ?? ''}>{q.text}</h3>
+      <section className={s.questionCard}>
+        <h3 className={s.questionText}>{q.text}</h3>
 
-        <div className={cls.options ?? ''}>
-          {q.options.map((opt) => (
-            <button
-              key={opt.id}
-              type="button"
-              className={cls.option ?? ''}
-              onClick={() => choose(opt.id)}
-              aria-pressed={answers[q.id] === opt.id}
-            >
-              <span className={cls.optionLetter ?? ''}>{opt.id}</span>
-              <span className={cls.optionText ?? ''}>{opt.text}</span>
+        <div className={s.options}>
+          {Array.isArray(q.options) ? q.options.map((opt: any) => (
+            <button key={opt.id} className={s.option} onClick={() => choose(opt.id)}>
+              <span className={s.optionLetter}>{opt.id}</span>
+              <span className={s.optionText}>{opt.text}</span>
             </button>
-          ))}
+          )) : <p>Вопрос повреждён — нет options.</p>}
         </div>
       </section>
 
-      <footer className={cls.footer ?? ''}>
-        <button className={cls.back ?? ''} onClick={goBack}>
-          Назад
-        </button>
+      <footer className={s.footer}>
+        <button className={s.back} onClick={goBack}>Назад</button>
       </footer>
     </div>
   );

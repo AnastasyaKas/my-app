@@ -10,6 +10,7 @@ import Courses from './pages/Courses';
 import BottomNav from './components/BottomNav/BottomNav';
 import PersonalityTest from './pages/tests/Personality';
 import FearTest from './pages/tests/Fear';
+import GenericTest from './pages/tests/GenericTest';
 
 import * as styles from './styles/App.module.css';
 import './global.css';
@@ -51,6 +52,7 @@ export default function App() {
             <Route path="/practices" element={<Practices />} />
             <Route path="/courses" element={<Courses />} />
             <Route path="/tests/fear" element={<FearTest />} />
+            <Route path="/tests/:slug" element={<GenericTest />} />
             <Route path="*" element={<Home />} />
           </Routes>
         </main>
