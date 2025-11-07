@@ -25,8 +25,7 @@ type TestData = { questions: Question[]; meta?: { title?: string } };
 const DATA_LOADERS: Record<string, () => Promise<TestData | null>> = {
   personality: () => import('./PersonalityData').then(m => (m.default ?? m) as any).catch(() => null),
   fear: () => import('./FearData').then(m => (m.default ?? m) as any).catch(() => null),
-  // Для будущих тестов добавляй:
-  // sleep: () => import('./SleepData').then(m => (m.default ?? m) as any).catch(() => null),
+  stress: () => import('./StressData').then((m) => m.default ?? m).catch(() => null)
 };
 
 // Фолбэк — генерация простых вопросов (10 штук)
@@ -143,6 +142,12 @@ export default function GenericTest(): JSX.Element {
         C: { title: 'Страх неудачи', emoji:'⚖️', text:'Ты переживаешь о результатах...' },
         D: { title: 'Страх быть собой', emoji:'🎭', text:'Тебя волнует мнение окружающих...' },
       },
+      stress: {
+        A: { title: 'Устойчивый к стрессу', emoji: '🌿', text: 'Ты умеешь держать баланс и сохранять спокойствие...' },
+        B: { title: 'Контролирующий стресс', emoji: '💪', text: 'Ты стараешься справляться... ' },
+        C: { title: 'Усталый реалист', emoji: '😓', text: 'Ты часто берёшь на себя слишком много...' },
+        D: { title: 'На грани стресса', emoji: '🌧️', text: 'Ты сильно реагируешь на внешние обстоятельства...' },
+      }
     };
     const mapFor = mapping[slug ?? ''] ?? {
       A: { title: 'Тип A', emoji:'🅰️', text:'Описание типа A' },
