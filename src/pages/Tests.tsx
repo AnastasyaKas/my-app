@@ -8,10 +8,6 @@ export default function Tests() {
 
   return (
     <div className={s.page}>
-      <header className={s.header}>
-        <h1 className={s.title}>Тесты</h1>
-        <p className={s.subtitle}>Выбери тест — он откроется последовательно по вопросам</p>
-      </header>
 
       <div className={s.list}>
         {tests.map((t) => (
